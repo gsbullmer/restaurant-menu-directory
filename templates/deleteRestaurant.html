@@ -1,0 +1,28 @@
+{% extends "foundation/base.html" %}
+
+{% import "foundation/fixes.html" as fixes %}
+
+{% block head %}
+  {{ super() }}
+  {{ fixes.ie8() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+  <script type="text/javascript">
+    function cancel() {
+      window.location.href = "{{ url_for('showRestaurants') }}";
+    }
+  </script>
+
+{% endblock head %}
+
+{% block content %}
+
+  <h1>Are you sure you want to delete {{ restaurant.name }}?</h1>
+
+  <form action="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}" method="post">
+
+    <input type="submit" value="Yes">
+    <input type="button" value="No" onclick="cancel()">
+
+  </form>
+
+{% endblock content %}

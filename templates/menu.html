@@ -1,0 +1,55 @@
+{% extends "foundation/base.html" %}
+
+{% import "foundation/fixes.html" as fixes %}
+
+{% block head %}
+  {{ super() }}
+  {{ fixes.ie8() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+
+{% endblock head %}
+
+{% block content %}
+
+  <h1>{{ restaurant.name }}</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+      {% for message in messages %}
+
+        <div data-alert class="alert-box success radius">
+          {{ message }}
+          <a href="#" class="close">&times</a>
+        </div>
+
+      {% endfor %}
+
+    {% endif %}
+  {% endwith %}
+
+  {% if items.count > 0 %}
+
+    {% for i in items %}
+
+      <div>
+
+        <p>
+          <strong>{{ i.name }}</strong> - <em>{{ i.price }}</em><br/>
+          {{ i.description }}<br/>
+          <a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}">Edit</a> | <a href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}">Delete</a>
+        </p>
+
+      </div>
+
+    {% endfor %}
+
+  {% else %}
+
+    <p>No menu items have been listed.</p>
+
+  {% endif %}
+
+  <a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}">New menu item</a> | <a href="{{ url_for('showRestaurants') }}">Back to Restaurants</a>
+
+{% endblock content %}

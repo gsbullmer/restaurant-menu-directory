@@ -1,0 +1,33 @@
+{% extends "foundation/base.html" %}
+
+{% import "foundation/fixes.html" as fixes %}
+
+{% block head %}
+  {{ super() }}
+  {{ fixes.ie8() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+  <script type="text/javascript">
+    function cancel() {
+      window.location.href = "{{ url_for('showMenu', restaurant_id = item.restaurant_id) }}";
+    }
+  </script>
+
+{% endblock head %}
+
+{% block content %}
+
+  <h1>Edit Menu Item</h1>
+
+  <form action="{{ url_for('editMenuItem', restaurant_id = item.restaurant_id, menu_id = item.id) }}" method="post">
+
+    <p>New Name:</p>
+    <input type="text" size="30" name="name" placeholder="{{ item.name }}">
+    <input type="text" size="30" name="price" placeholder="{{ item.price }}">
+    <input type="text" size="30" name="description" placeholder="{{ item.description }}">
+    <input type="text" size="30" name="course" placeholder="{{ item.course }}">
+    <input type="submit" value="Update">
+    <input type="button" value="Cancel" onclick="cancel()">
+
+  </form>
+
+{% endblock content %}
