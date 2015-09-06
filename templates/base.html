@@ -1,0 +1,57 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %}{% endblock title %}</title>
+
+    {% block styles %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    {% endblock styles %}
+
+    {% block head_scripts %}
+      <script src="{{ url_for('static', filename='js/vendor/modernizr.js') }}"></script>
+    {% endblock head_scripts %}
+  </head>
+  <body>
+    <div class="row">
+      <div class="small-12 columns">
+
+        {% block nav %}
+        {% endblock nav %}
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+
+            {% for message in messages %}
+
+              <div data-alert class="alert-box success radius">
+                {{ message }}
+                <a href="#" class="close">&times</a>
+              </div>
+
+            {% endfor %}
+
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}
+
+        {% endblock content %}
+
+      </div>
+    </div>
+
+    {% block footer_scripts %}
+      <script src="{{ url_for('static', filename='js/vendor/jquery.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/foundation/foundation.js') }}"></script>
+    {% endblock footer_scripts %}
+    <script>
+      $(document).foundation({
+        {% block foundation_call %}{% endblock foundation_call %}
+      });
+    </script>
+  </body>
+</html>
