@@ -5,23 +5,33 @@ AllMenus
 {% endblock title %}
 
 {% block content %}
-  <h1 class="text-center">Welcome to AllMenus</h1>
-  <h3 class="subheader text-center">If it has a menu, you'll find it here</h3>
+  <div class="text-center">
+    <h1>Welcome to AllMenus</h1>
+    <h1><small>If it has a menu, you'll find it here</small></h1>
+  </div>
 
-  <div class="row">
+  <div class="row" data-equalizer>
 
     {% if restaurants %}
 
       {% for r in restaurants %}
 
-        <div class="small-12 medium-6 columns text-center">
-          <div class="panel">
+        <div class="small-12 medium-6 large-4 columns text-center">
+          <div class="panel radius" data-equalizer-watch>
             <h5><strong>{{ r.name }}</strong></h5>
-            <ul class="button-group radius">
-              <li><a href="{{ url_for('showMenu', restaurant_id = r.id) }}" class="button primary small">See menu</a></li>
-              <li><a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button primary small">Edit</a></li>
-              <li><a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button alert small">Delete</a></li>
-            </ul>
+            <div class="show-for-small-only">
+              <a href="{{ url_for('showMenu', restaurant_id = r.id) }}" class="button small radius expand">See menu</a>
+              <a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button small radius expand">Edit</a>
+              <a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button small radius expand">Delete</a>
+              </ul>
+            </div>
+            <div class="show-for-medium-up">
+              <a href="{{ url_for('showMenu', restaurant_id = r.id) }}" class="button tiny radius expand">See menu</a>
+              <ul class="button-group radius even-2">
+                <li><a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button tiny">Edit</a></li>
+                <li><a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button tiny">Delete</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -33,9 +43,23 @@ AllMenus
 
     {% endif %}
 
-    <div class="small-12 medium-6 columns end">
-      <a href="{{ url_for('newRestaurant') }}" class="button primary small expand">Add New Restaurant</a>
+    <div class="small-12 medium-6 large-4 columns end">
+      <a href="{{ url_for('newRestaurant') }}" class="button radius small expand">Add New Restaurant</a>
     </div>
   </div>
 
 {% endblock content %}
+
+{% block footer_scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/foundation/foundation.equalizer.js') }}"></script>
+{% endblock footer_scripts %}
+
+{% block foundation_call %}
+  equalizer : {
+    // Specify if Equalizer should make elements equal height once they become stacked.
+    equalize_on_stack: true,
+    // Allow equalizer to resize hidden elements
+    act_on_hidden_el: false
+  }
+{% endblock foundation_call %}
