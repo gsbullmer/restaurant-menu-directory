@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, redirect, flash, jsonify
-from flask_zurb_foundation import Foundation
+from sqlalchemy.sql import func
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ session = DBSession()
 @app.route('/')
 @app.route('/restaurant/')
 def showRestaurants():
-    restaurants = session.query(Restaurant).all()
+    restaurants = session.query(Restaurant).order_by('name').all()
     return render_template("restaurants.html", restaurants = restaurants)
 
 @app.route('/restaurant/new/', methods = ['GET', 'POST'])
@@ -59,9 +59,16 @@ def deleteRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/menu/')
 def showMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
-    items = session.query(MenuItem).filter_by(restaurant_id = restaurant.id).all()
+    items = session.query(MenuItem).filter_by(restaurant_id = restaurant.id).order_by('name').all()
 
-    return render_template("menu.html", restaurant = restaurant, items = items)
+    courses = []
+    for i in items:
+        courses.append(i.course)
+
+    courses = list(set(courses))
+    courses.sort()
+
+    return render_template("menu.html", restaurant = restaurant, items = items, courses = courses)
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new/', methods = ['GET', 'POST'])
 def newMenuItem(restaurant_id):
@@ -128,7 +135,6 @@ def menuItemJSON(restaurant_id, menu_id):
 
 
 if __name__ == '__main__':
-    Foundation(app)
     app.secret_key = 'super secret key'
     app.debug = True
     app.run(host = '0.0.0.0', port = 5000)

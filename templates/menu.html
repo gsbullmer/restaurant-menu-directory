@@ -4,8 +4,7 @@
 AllMenus
 {% endblock title %}
 
-{% block content %}
-
+{% block nav %}
   <div class="fixed contain-to-grid">
     <nav class="top-bar" data-topbar role="navigation">
       <ul class="title-area">
@@ -15,46 +14,72 @@ AllMenus
       </ul>
     </nav>
   </div>
+{% endblock nav %}
 
-  <h1>{{ restaurant.name }}</h1>
+{% block content %}
+  <div class="text-center">
+    <h1>{{ restaurant.name }}</h1>
+  </div>
 
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
+  {% if items %}
 
-      {% for message in messages %}
+    <div class="row">
+      {% for course in courses %}
+        <div id="{{ course }}s" class="small-12 columns panel">
+          <h3>{{ course }}s</h3>
 
-        <div data-alert class="alert-box success radius">
-          {{ message }}
-          <a href="#" class="close">&times</a>
+          <div class="row" data-equalizer>
+
+            {% for i in items %}
+
+              {% if i.course == course %}
+                <div class="small-12 medium-6 large-4 columns end">
+                  <ul class="pricing-table" data-equalizer-watch>
+                    <li class="title">{{ i.name }}</li>
+                    <li class="price">{{ i.price }}</li>
+                    <li class="description">{{ i.description }}</li>
+                    <li class="cta-button">
+                      <div class="cta-button-td">
+                        <ul class="button-group even-2 radius">
+                          <li><a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny">Edit</a></li>
+                          <li><a href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny">Delete</a></li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+
+                </div>
+
+              {% endif %}
+
+            {% endfor %}
+
+          </div>
+
         </div>
 
       {% endfor %}
-
-    {% endif %}
-  {% endwith %}
-
-  {% if items.count > 0 %}
-
-    {% for i in items %}
-
-      <div>
-
-        <p>
-          <strong>{{ i.name }}</strong> - <em>{{ i.price }}</em><br/>
-          {{ i.description }}<br/>
-          <a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}">Edit</a> | <a href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}">Delete</a>
-        </p>
-
-      </div>
-
-    {% endfor %}
+    </div>
 
   {% else %}
-
     <p>No menu items have been listed.</p>
-
   {% endif %}
 
-  <a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}">New menu item</a> | <a href="{{ url_for('showRestaurants') }}">Back to Restaurants</a>
+  <a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}" class="button small expand">New menu item</a>
+</div>
 
 {% endblock content %}
+
+{% block footer_scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/foundation/foundation.equalizer.js') }}"></script>
+{% endblock footer_scripts %}
+
+{% block foundation_call %}
+  equalizer : {
+    // Specify if Equalizer should make elements equal height once they become stacked.
+    equalize_on_stack: true,
+    // Allow equalizer to resize hidden elements
+    act_on_hidden_el: false
+  }
+{% endblock foundation_call %}

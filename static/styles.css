@@ -1,3 +1,23 @@
-.button {
-  margin: 0.25rem 0;
+body {
+  padding-top: 40px;
+}
+.top-bar .title-area {
+  text-align: center;
+  float: none;
+}
+.pricing-table {
+  display: table;
+  width: 100%;
+  background-color: #fff;
+}
+.pricing-table > li {
+  __display: table-cell;
+}
+.cta-button {
+  display: table-row;
+}
+.cta-button-td {
+  display: table-cell;
+  vertical-align: bottom;
+  padding: 1.25rem 1.25rem 0;
 }

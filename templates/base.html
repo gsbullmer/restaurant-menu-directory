@@ -16,11 +16,11 @@
     {% endblock head_scripts %}
   </head>
   <body>
+    {% block nav %}
+    {% endblock nav %}
+    
     <div class="row">
       <div class="small-12 columns">
-
-        {% block nav %}
-        {% endblock nav %}
 
         {% with messages = get_flashed_messages() %}
           {% if messages %}
