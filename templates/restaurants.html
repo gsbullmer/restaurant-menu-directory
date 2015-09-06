@@ -1,69 +1,40 @@
-{% extends "foundation/base.html" %}
+{% extends "base.html" %}
 
-{% import "foundation/fixes.html" as fixes %}
-
-{% block head %}
-  {{ super() }}
-  {{ fixes.ie8() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
-
-{% endblock head %}
+{% block title %}
+Welcome to AllMenus!
+{% endblock title %}
 
 {% block content %}
-  <div class="fixed contain-to-grid">
-    <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="#">My Site</a></h1>
-        </li>
-      </ul>
-    </nav>
-  </div>
+  <h1 class="text-center">Welcome to AllMenus</h1>
+  <h3 class="subheader text-center">If it has a menu, you'll find it here</h3>
 
   <div class="row">
-    <div class="small-12 columns">
 
-      <h1>All Restaurants</h1>
+    {% if restaurants %}
 
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
+      {% for r in restaurants %}
 
-          {% for message in messages %}
-
-            <div data-alert class="alert-box success radius">
-              {{ message }}
-              <a href="#" class="close">&times</a>
-            </div>
-
-          {% endfor %}
-
-        {% endif %}
-      {% endwith %}
-
-      {% if restaurants %}
-
-        {% for r in restaurants %}
-
-        <div>
-
-          <p>
-            <strong>{{ r.name }}</strong><br/>
-            <a href="{{ url_for('showMenu', restaurant_id = r.id) }}">See menu</a><br/>
-            <a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}">Edit</a> | <a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}">Delete</a>
-          </p>
-
+        <div class="small-12 medium-6 columns text-center">
+          <div class="panel">
+            <h5><strong>{{ r.name }}</strong></h5>
+            <ul class="button-group radius">
+              <li><a href="{{ url_for('showMenu', restaurant_id = r.id) }}" class="button primary small">See menu</a></li>
+              <li><a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button primary small">Edit</a></li>
+              <li><a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button alert small">Delete</a></li>
+            </ul>
+          </div>
         </div>
 
-        {% endfor %}
+      {% endfor %}
 
-      {% else %}
+    {% else %}
 
-        <h4>No restaurants have been listed.</h4>
+      <h4>No restaurants have been listed.</h4>
 
-      {% endif %}
+    {% endif %}
 
-      <a href="{{ url_for('newRestaurant') }}">Add New Restaurant</a>
-
+    <div class="small-12 medium-6 columns end">
+      <a href="{{ url_for('newRestaurant') }}" class="button primary small expand">Add New Restaurant</a>
     </div>
   </div>
 
