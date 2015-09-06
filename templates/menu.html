@@ -1,15 +1,20 @@
-{% extends "foundation/base.html" %}
+{% extends "base.html" %}
 
-{% import "foundation/fixes.html" as fixes %}
-
-{% block head %}
-  {{ super() }}
-  {{ fixes.ie8() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
-
-{% endblock head %}
+{% block title %}
+AllMenus
+{% endblock title %}
 
 {% block content %}
+
+  <div class="fixed contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="{{ url_for('showRestaurants') }}">AllMenus</a></h1>
+        </li>
+      </ul>
+    </nav>
+  </div>
 
   <h1>{{ restaurant.name }}</h1>
 

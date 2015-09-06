@@ -1,18 +1,18 @@
-{% extends "foundation/base.html" %}
+{% extends "base.html" %}
 
-{% import "foundation/fixes.html" as fixes %}
+{% block title %}
+AllMenus
+{% endblock title %}
 
-{% block head %}
+{% block head_scripts %}
   {{ super() }}
-  {{ fixes.ie8() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
   <script type="text/javascript">
     function cancel() {
       window.location.href = "{{ url_for('showRestaurants') }}";
     }
   </script>
 
-{% endblock head %}
+{% endblock head_scripts %}
 
 {% block content %}
 
