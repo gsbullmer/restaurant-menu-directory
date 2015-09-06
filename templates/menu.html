@@ -4,21 +4,17 @@
 AllMenus
 {% endblock title %}
 
-{% block nav %}
-  <div class="fixed contain-to-grid">
-    <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="{{ url_for('showRestaurants') }}">AllMenus</a></h1>
-        </li>
-      </ul>
-    </nav>
-  </div>
-{% endblock nav %}
-
 {% block content %}
   <div class="text-center">
     <h1>{{ restaurant.name }}</h1>
+  </div>
+
+  <div data-magellan-expedition="fixed">
+    <dl class="sub-nav">
+      {% for course in courses %}
+        <dd data-magellan-arrival="{{ course }}s"><a href="#{{ course }}s">{{ course }}s</a></dd>
+      {% endfor %}
+    </dl>
   </div>
 
   {% if items %}
@@ -26,7 +22,8 @@ AllMenus
     <div class="row">
       {% for course in courses %}
         <div id="{{ course }}s" class="small-12 columns panel">
-          <h3>{{ course }}s</h3>
+          <h3 data-magellan-destination="{{ course }}s">{{ course }}s</h3>
+          <a name="{{ course }}s"></a>
 
           <div class="row" data-equalizer>
 
@@ -65,14 +62,17 @@ AllMenus
     <p>No menu items have been listed.</p>
   {% endif %}
 
-  <a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}" class="button small expand">New menu item</a>
 </div>
+
+<a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}" class="button small expand">New menu item</a>
+<a href="{{ url_for('showRestaurants') }}" class="button small expand">Back to Restaurants</a>
 
 {% endblock content %}
 
 {% block footer_scripts %}
   {{ super() }}
   <script src="{{ url_for('static', filename='js/foundation/foundation.equalizer.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/foundation/foundation.magellan.js') }}"></script>
 {% endblock footer_scripts %}
 
 {% block foundation_call %}
