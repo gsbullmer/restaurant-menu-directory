@@ -21,15 +21,15 @@ AllMenus
             <h5><strong>{{ r.name }}</strong></h5>
             <div class="show-for-small-only">
               <a href="{{ url_for('showMenu', restaurant_id = r.id) }}" class="button small radius expand">See menu</a>
-              <a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button small radius expand">Edit</a>
-              <a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button small radius expand">Delete</a>
+              <a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button small radius expand" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a>
+              <a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button small radius expand" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a>
               </ul>
             </div>
             <div class="show-for-medium-up">
               <a href="{{ url_for('showMenu', restaurant_id = r.id) }}" class="button tiny radius expand">See menu</a>
               <ul class="button-group radius even-2">
-                <li><a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button tiny">Edit</a></li>
-                <li><a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button tiny">Delete</a></li>
+                <li><a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button tiny" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a></li>
+                <li><a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button tiny" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a></li>
               </ul>
             </div>
           </div>
@@ -44,7 +44,7 @@ AllMenus
     {% endif %}
 
     <div class="small-12 medium-6 large-4 columns end">
-      <a href="{{ url_for('newRestaurant') }}" class="button radius small expand">Add New Restaurant</a>
+      <a href="{{ url_for('newRestaurant') }}" class="button radius small expand" data-reveal-id="formModal" data-reveal-ajax="true">Add New Restaurant</a>
     </div>
   </div>
 
@@ -53,6 +53,7 @@ AllMenus
 {% block footer_scripts %}
   {{ super() }}
   <script src="{{ url_for('static', filename='js/foundation/foundation.equalizer.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/foundation/foundation.reveal.js') }}"></script>
 {% endblock footer_scripts %}
 
 {% block foundation_call %}

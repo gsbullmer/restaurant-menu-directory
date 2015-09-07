@@ -9,19 +9,19 @@ AllMenus
     <h1>{{ restaurant.name }}</h1>
   </div>
 
-  <div data-magellan-expedition="fixed">
-    <dl class="sub-nav">
-      {% for course in courses %}
-        <dd data-magellan-arrival="{{ course }}s"><a href="#{{ course }}s">{{ course }}s</a></dd>
-      {% endfor %}
-    </dl>
-  </div>
-
   {% if items %}
 
     <div class="row">
+      <div class="magellan-container" style="" data-magellan-expedition="fixed" data-options="destination_threshold:65; throttle_delay:0;">
+        <dl class="sub-nav">
+          {% for course in courses %}
+            <dd data-magellan-arrival="{{ course }}s"><a href="#{{ course }}s">{{ course }}s</a></dd>
+          {% endfor %}
+        </dl>
+      </div>
+
       {% for course in courses %}
-        <div id="{{ course }}s" class="small-12 columns panel">
+        <div class="small-12 columns panel">
           <h3 data-magellan-destination="{{ course }}s">{{ course }}s</h3>
           <a name="{{ course }}s"></a>
 
@@ -38,8 +38,8 @@ AllMenus
                     <li class="cta-button">
                       <div class="cta-button-td">
                         <ul class="button-group even-2 radius">
-                          <li><a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny">Edit</a></li>
-                          <li><a href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny">Delete</a></li>
+                          <li><a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a></li>
+                          <li><a href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a></li>
                         </ul>
                       </div>
                     </li>
@@ -64,7 +64,7 @@ AllMenus
 
 </div>
 
-<a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}" class="button small expand">New menu item</a>
+<a href="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}" class="button small expand" data-reveal-id="formModal" data-reveal-ajax="true">New menu item</a>
 <a href="{{ url_for('showRestaurants') }}" class="button small expand">Back to Restaurants</a>
 
 {% endblock content %}
@@ -73,13 +73,20 @@ AllMenus
   {{ super() }}
   <script src="{{ url_for('static', filename='js/foundation/foundation.equalizer.js') }}"></script>
   <script src="{{ url_for('static', filename='js/foundation/foundation.magellan.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/foundation/foundation.reveal.js') }}"></script>
 {% endblock footer_scripts %}
 
 {% block foundation_call %}
   equalizer : {
-    // Specify if Equalizer should make elements equal height once they become stacked.
     equalize_on_stack: true,
-    // Allow equalizer to resize hidden elements
     act_on_hidden_el: false
+  },
+  "magellan-expedition": {
+    active_class: 'active',
+    threshold: 0,
+    destination_threshold: 20,
+    throttle_delay: 50,
+    fixed_top: 0,
+    offset_by_height: true
   }
 {% endblock foundation_call %}
