@@ -16,7 +16,7 @@ AllMenus
 
       {% for r in restaurants %}
 
-        <div class="small-12 medium-6 large-4 columns text-center">
+        <div class="small-12 medium-6 large-4 columns text-center end">
           <div class="panel radius" data-equalizer-watch>
             <h5><strong>{{ r.name }}</strong></h5>
             <div class="show-for-small-only">
@@ -25,7 +25,7 @@ AllMenus
               <a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button small radius expand" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a>
               </ul>
             </div>
-            <div class="show-for-medium-up">
+            <div class="hide-for-small-only">
               <a href="{{ url_for('showMenu', restaurant_id = r.id) }}" class="button tiny radius expand">See menu</a>
               <ul class="button-group radius even-2">
                 <li><a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button tiny" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a></li>
@@ -43,7 +43,7 @@ AllMenus
 
     {% endif %}
 
-    <div class="small-12 medium-6 large-4 columns end">
+    <div class="small-12 columns">
       <a href="{{ url_for('newRestaurant') }}" class="button radius small expand" data-reveal-id="formModal" data-reveal-ajax="true">Add New Restaurant</a>
     </div>
   </div>

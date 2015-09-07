@@ -1,31 +1,11 @@
-<!doctype html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% block styles %}
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}" />
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-    {% endblock styles %}
+<script type="text/javascript">
+  function cancel() {
+    $('#deleteModal').foundation('reveal', 'close');
+    $('#formModal').foundation('reveal', 'close');
+  }
+</script>
 
-    {% block head_scripts %}
-      <script src="{{ url_for('static', filename='js/vendor/modernizr.js') }}"></script>
-    {% endblock head_scripts %}
-  </head>
-  <body>
-    {% block content %}
+{% block content %}
 
-    {% endblock content %}
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-
-    {% block footer_scripts %}
-      <script src="{{ url_for('static', filename='js/vendor/jquery.js') }}"></script>
-      <script src="{{ url_for('static', filename='js/foundation/foundation.js') }}"></script>
-    {% endblock footer_scripts %}
-    <script>
-      $(document).foundation({
-        {% block foundation_call %}{% endblock foundation_call %}
-      });
-    </script>
-  </body>
-</html>
+{% endblock content %}
+<a class="close-reveal-modal" aria-label="Close">&#215;</a>

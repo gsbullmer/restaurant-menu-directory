@@ -1,32 +1,57 @@
 {% extends "modal.html" %}
 
-{% block title %}
-AllMenus
-{% endblock title %}
-
-{% block head_scripts %}
-  {{ super() }}
-  <script type="text/javascript">
-    function cancel() {
-      window.location.href = "{{ url_for('showMenu', restaurant_id = restaurant_id) }}";
-    }
-  </script>
-
-{% endblock head_scripts %}
-
 {% block content %}
-
-  <h1>New Menu Item</h1>
 
   <form action="{{ url_for('newMenuItem', restaurant_id = restaurant_id) }}" method="post">
 
-    <p>Name:</p>
-    <input type="text" size="30" name="name">
-    <input type="text" size="30" name="price">
-    <input type="text" size="30" name="description">
-    <input type="text" size="30" name="course">
-    <input type="submit" value="Create">
-    <input type="button" value="Cancel" onclick="cancel()">
+    <div class="row">
+      <div class="small-12 columns text-center">
+
+        <h3>Create New Menu Item</h3>
+        <br/>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-8 columns">
+        <label>Name
+          <input type="text" id="name-label" name="name">
+        </label>
+      </div>
+      <div class="small-12 medium-4 columns">
+        <label>Price
+          <input type="text" size="30" name="price">
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <label>Description
+          <textarea size="250" name="description"></textarea>
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <label>Course
+          <input type="text" size=30 name="course">
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns text-center">
+        <div class="small-12 medium-6 medium-offset-3 columns">
+          <ul class="button-group radius even-2">
+            <li><button type="submit" class="button small success">Create</button></li>
+            <li><button type="button" class="button small alert" onclick="cancel()">Cancel</button></li>
+          </div>
+        </ul>
+      </div>
+    </div>
 
   </form>
 

@@ -1,29 +1,36 @@
 {% extends "modal.html" %}
 
-{% block title %}
-AllMenus
-{% endblock title %}
-
-{% block head_scripts %}
-  {{ super() }}
-  <script type="text/javascript">
-    function cancel() {
-      window.location.href = "{{ url_for('showRestaurants') }}";
-    }
-  </script>
-
-{% endblock head_scripts %}
-
 {% block content %}
-
-  <h1>Edit Menu Item</h1>
 
   <form action="{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}" method="post">
 
-    <p>New Name:</p>
-    <input type="text" size="30" name="name" placeholder="{{ restaurant.name }}">
-    <input type="submit" value="Update">
-    <input type="button" value="Cancel" onclick="cancel()">
+    <div class="row">
+      <div class="small-12 columns text-center">
+
+        <h3>Edit Restaurant</h3>
+        <br/>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <label>Name
+          <input type="text" id="name-label" name="name" value="{{ restaurant.name }}">
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns text-center">
+        <div class="small-12 medium-6 medium-offset-3 columns">
+          <ul class="button-group radius even-2">
+            <li><button type="submit" class="button small success">Save</button></li>
+            <li><button type="button" class="button small alert" onclick="cancel()">Cancel</button></li>
+          </div>
+        </ul>
+      </div>
+    </div>
 
   </form>
 
