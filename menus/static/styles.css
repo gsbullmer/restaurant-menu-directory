@@ -1,0 +1,33 @@
+.top-bar .title-area {
+  text-align: center;
+  float: none;
+}
+.pricing-table {
+  display: table;
+  width: 100%;
+  background-color: #fff;
+}
+.pricing-table > li {
+  __display: table-cell;
+}
+.cta-button {
+  display: table-row;
+}
+.cta-button-td {
+  display: table-cell;
+  vertical-align: bottom;
+  padding: 1.25rem 1.25rem 0;
+}
+.top-bar .name h1 a, .top-bar .name h2 a, .top-bar .name h3 a, .top-bar .name h4 a, .top-bar .name p a, .top-bar .name span a {
+  color: #FFFFFF;
+  display: block;
+  font-weight: normal;
+  padding: 0 0.9375rem;
+  width: 100%;
+}
+.sub-nav{
+  margin: 0 auto !important;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}

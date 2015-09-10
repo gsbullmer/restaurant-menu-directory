@@ -1,0 +1,24 @@
+{% extends "modal.html" %}
+
+{% block content %}
+
+  <form action="{{ url_for('deleteMenuItem', restaurant_id = item.restaurant_id, menu_id = item.id) }}" method="post">
+
+    <div class="row">
+      <div class="small-12 columns text-center">
+
+        <h3>Delete {{ item.name }}?</h3>
+        <h5 class="subheader">This cannot be undone.</h5>
+
+        <ul class="button-group radius even-2">
+          <li><button type="submit" class="button small success">Yes</button></li>
+          <li><button type="button" class="button small alert" onclick="cancel()">No</button></li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </form>
+
+{% endblock content %}
