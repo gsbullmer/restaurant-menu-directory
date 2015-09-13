@@ -12,14 +12,12 @@ class Restaurant(Base):
     __tablename__ = 'restaurant'
 
     name = Column(String(80), nullable = False)
-    description = Column(String(250))
     id = Column(Integer, primary_key = True)
 
     @property
     def serialize(self):
         return {
             'name': self.name,
-            'description': self.description,
             'id': self.id,
         }
 
