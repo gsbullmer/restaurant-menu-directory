@@ -16,21 +16,30 @@ AllMenus
 
       {% for r in restaurants %}
 
+        {% set creator = getUserInfo(r.user_id) %}
+
         <div class="small-12 medium-6 large-4 columns text-center end">
           <div class="panel radius" data-equalizer-watch>
             <h5><strong>{{ r.name }}</strong></h5>
             <div class="show-for-small-only">
               <a href="{{ url_for('showMenu', restaurant_id = r.id) }}" class="button small radius expand">See menu</a>
-              <a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button small radius expand" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a>
-              <a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button small radius expand" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a>
-              </ul>
+              {% if current_user.id == creator.id %}
+                <a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button small radius expand" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a>
+                <a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button small radius expand" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a>
+              {% else %}
+                <p>Created by {{ creator.username }}</p>
+              {% endif %}
             </div>
             <div class="hide-for-small-only">
               <a href="{{ url_for('showMenu', restaurant_id = r.id) }}" class="button tiny radius expand">See menu</a>
-              <ul class="button-group radius even-2">
-                <li><a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button tiny" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a></li>
-                <li><a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button tiny" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a></li>
-              </ul>
+              {% if current_user.id == creator.id %}
+                <ul class="button-group radius even-2">
+                  <li><a href="{{ url_for('editRestaurant', restaurant_id = r.id) }}" class="button tiny" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a></li>
+                  <li><a href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}" class="button tiny" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a></li>
+                </ul>
+              {% else %}
+                <p>Created by {{ creator.username }}</p>
+              {% endif %}
             </div>
           </div>
         </div>

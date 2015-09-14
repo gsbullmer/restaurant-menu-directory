@@ -30,19 +30,26 @@ AllMenus
             {% for i in items %}
 
               {% if i.course == course %}
+
+                {% set creator = getUserInfo(i.user_id) %}
+
                 <div class="small-12 medium-6 large-4 columns end">
                   <ul class="pricing-table" data-equalizer-watch>
                     <li class="title">{{ i.name }}</li>
                     <li class="price">{{ i.price }}</li>
                     <li class="description">{{ i.description }}</li>
-                    <li class="cta-button">
-                      <div class="cta-button-td">
-                        <ul class="button-group even-2 radius">
-                          <li><a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a></li>
-                          <li><a href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a></li>
-                        </ul>
-                      </div>
-                    </li>
+                    {% if current_user.id == creator.id %}
+                      <li class="cta-button">
+                        <div class="cta-button-td">
+                          <ul class="button-group even-2 radius">
+                            <li><a href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny" data-reveal-id="formModal" data-reveal-ajax="true">Edit</a></li>
+                            <li><a href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}" class="button tiny" data-reveal-id="deleteModal" data-reveal-ajax="true">Delete</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                    {% else %}
+                      <li class="bullet-item">Created by {{ creator.username }}</li>
+                    {% endif %}
                   </ul>
 
                 </div>
