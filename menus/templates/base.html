@@ -8,6 +8,7 @@
 
     {% block styles %}
       <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation-icons.css') }}" />
       <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
     {% endblock styles %}
 
@@ -16,12 +17,37 @@
     {% endblock head_scripts %}
   </head>
   <body>
-    {% block nav %}
-    {% endblock nav %}
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">AllMenus</a></h1>
+        </li>
+         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+          {% if 'username' not in session %}
+            <li><a href="{{ url_for('showLogin')}}" data-reveal-id="loginModal" data-reveal-ajax="true"><i class="fi-torso"></i> Login</a></li>
+          {% else %}
+            <li><a href="{{ url_for('disconnect') }}#"><i class="fi-torso"></i> Logout</a></li>
+          {% endif %}
+        </ul>
+
+        <!-- Left Nav Section -->
+        <ul class="left">
+          <li><a href="{{ url_for('showRestaurants') }}"><i class="fi-home"></i> Show All Restaurants</a></li>
+        </ul>
+      </section>
+    </nav>
 
     <div id="formModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog"></div>
 
     <div id="deleteModal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog"></div>
+
+    <div id="loginModal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog"></div>
 
     <div class="row">
       <div class="small-12 columns">
