@@ -1,1 +1,1 @@
-web: gunicorn menus.final_project --log-file -
+web: gunicorn menus.final_project:app --log-file -
